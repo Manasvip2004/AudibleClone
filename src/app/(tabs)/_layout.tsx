@@ -1,7 +1,19 @@
-import { Slot, Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useAuth } from "@clerk/clerk-expo";
+import { ActivityIndicator } from "react-native";
 
 export default function Tabslayout() {
+  const { isSignedIn, isLoaded } = useAuth();
+
+  if (!isLoaded) {
+    return <ActivityIndicator />;
+  }
+
+  if (isSignedIn) {
+    return <Redirect href="/(auth)/sign-in" />;
+  }
+
   return (
     // <Tabs screenOptions={{ tabBarShowLabel: false }}> -- to not have labels
     <Tabs>

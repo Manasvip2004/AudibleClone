@@ -1,6 +1,8 @@
 import "../../global.css";
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { Slot } from "expo-router";
-import { DarkTheme, ThemeProvider } from "@react-navigation/native";
+import { ThemeProvider, DarkTheme } from "@react-navigation/native";
 
 const theme = {
   ...DarkTheme,
@@ -15,7 +17,12 @@ const theme = {
 export default function Rootlayout() {
   return (
     <ThemeProvider value={theme}>
-      <Slot />;
+      <ClerkProvider
+        publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        tokenCache={tokenCache}
+      >
+        <Slot />
+      </ClerkProvider>
     </ThemeProvider>
   );
 }
