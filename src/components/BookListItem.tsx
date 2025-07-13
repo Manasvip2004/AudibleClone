@@ -1,12 +1,19 @@
-import "./global.css";
-import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-import books from "./src/dummyBooks";
-import BookListItem from "./src/components/BookListItem";
+type Book = {
+  id: string;
+  title: string;
+  author: string;
+  audio_url: string;
+  thumbnail_url?: string;
+};
 
-export function BookListItem({ book }) {
+type BookListItemProps = {
+  book: Book;
+};
+
+export default function BookListItem({ book }) {
   return (
     <View className="bg-slate-800 flex-1 justify-center p-4 ">
       {/* Book Row*/}
@@ -21,19 +28,6 @@ export function BookListItem({ book }) {
         </View>
         <AntDesign name="playcircleo" size={24} color="gainsboro" />
       </View>
-    </View>
-  );
-}
-
-export default function App() {
-  return (
-    <View className="bg-slate-800 flex-1 justify-center p-4 ">
-      {/* Book Row*/}
-      <BookListItem book={books[0]} />
-      <BookListItem book={books[1]} />
-      <BookListItem book={books[2]} />
-
-      <StatusBar style="auto" />
     </View>
   );
 }
